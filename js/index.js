@@ -16,21 +16,30 @@ if (localStorage.getItem("product") !== null) {
 }
 
 function adding_Card() {
-  var array_Object = {
-    name: input_ProductName.value,
-    price: input_productPrice.value,
-    category: input_productCategory.value,
-    description: input_productDescription.value,
-    image: input_productImage.files[0]
-      ? `images/${input_productImage.files[0]?.name}`
-      : "images/2.jpg",
-  };
-  array_list.push(array_Object);
-  localStorage.setItem("product", JSON.stringify(array_list));
+  if (input_ProductName.value) {
+    var array_Object = {
+      name: input_ProductName.value,
+      price: input_productPrice.value,
+      category: input_productCategory.value,
+      description: input_productDescription.value,
+      image: input_productImage.files[0]
+        ? `images/${input_productImage.files[0]?.name}`
+        : "images/2.jpg",
+    };
+    array_list.push(array_Object);
+    localStorage.setItem("product", JSON.stringify(array_list));
 
-  display_Card();
-  // to clear the inputs after adding the card
-  clear_inputs();
+    display_Card();
+    // to clear the inputs after adding the card
+    clear_inputs();
+  } else {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong!",
+      footer: '<a href="#">Why do I have this issue?</a>',
+    });
+  }
 }
 
 function display_Card() {
