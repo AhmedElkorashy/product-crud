@@ -1,0 +1,74 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="css/all.min.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <main>
+    <section>
+      <div class="container bg-info bg-opacity-75 p-2 rounded-4 my-2">
+        <h1 class="text-center">CRUD SYSTEM</h1>
+
+        <!-- name  -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="productName" placeholder=" " />
+          <label for="productName">ProductName</label>
+        </div>
+        <!-- price  -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="productPrice" placeholder=" " />
+          <label for="productPrice">productPrice</label>
+        </div>
+        <!-- category  -->
+        <div class="form-floating mb-3">
+          <input list="list" type="text" class="form-control" id="productCategory" placeholder=" " />
+          <label for="productCategory">productCategory</label>
+
+          <datalist id="list">
+            <option value="tv" />
+            <option value="mobile" />
+            <option value="screens" />
+            <option value="electronic" />
+          </datalist>
+        </div>
+        <!-- description  -->
+        <div class="form-floating mb-3">
+          <textarea style="height: 100px" class="form-control" id="productDescription" placeholder=" "></textarea>
+          <label for="productDescription">productDescription</label>
+        </div>
+        <!-- image  -->
+        <div class="form-floating mb-3">
+          <input type="file" class="form-control" id="productImage" placeholder=" " />
+          <label for="productImage">productImage</label>
+        </div>
+
+        <!-- buttons  -->
+
+        <div>
+          <button onclick="adding_Card()" id="addUpdate" class="btn btn-primary btn-sm">Add Product</button>
+          <button onclick="updateItem()" id="btnUpdate" class="btn btn-warning btn-sm d-none">Update Product</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-4">
+      <div class="container-fluid">
+        <input type="search" class="form-control w-50 mx-auto" placeholder="Search By Name...." id="inputSearch"
+          oninput="search_product()" />
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 my-4 g-4 data border" id="row_container">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/index.js"></script>
+</body>
+
+</html>
