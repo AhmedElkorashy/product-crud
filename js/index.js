@@ -117,6 +117,7 @@ function updateItem() {
   array_list[current_index].description = input_productDescription.value;
   // array_list[current_index].image = input_productImage.value;
   display_Card();
+  localStorage.setItem("product", JSON.stringify(array_list));
   clear_inputs();
 }
 
