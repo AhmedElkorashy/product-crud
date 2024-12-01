@@ -18,10 +18,10 @@ if (localStorage.getItem("product") !== null) {
 function adding_Card() {
   if (input_ProductName.value) {
     var array_Object = {
-      name: input_ProductName.value,
+      name: input_ProductName.value.trim(),
       price: input_productPrice.value,
-      category: input_productCategory.value,
-      description: input_productDescription.value,
+      category: input_productCategory.value.trim(),
+      description: input_productDescription.value.trim(),
       image: input_productImage.files[0]
         ? `images/${input_productImage.files[0]?.name}`
         : "images/2.jpg",
@@ -45,25 +45,7 @@ function adding_Card() {
 function display_Card() {
   var cartona = "";
   for (var i = 0; i < array_list.length; i++) {
-    cartona += `<div class="col">
-            <div class="card">
-              <img class="card-img-top" src= ${array_list[i].image} alt=${array_list[i].name} />
-              <div class="card-body">
-                <span class="badge bg-info">Index: ${i}</span>
-                <h3 class="card-title h6">ProductName: ${array_list[i].name}</h3>
-                <div class="d-flex flex-column gap-2">
-                  <span class="card-text small">ProductPrice:  ${array_list[i].price}</span>
-                  <span class="card-text small">productCategory:  ${array_list[i].category}</span>
-                  <span class="card-text small">productDescription:  ${array_list[i].description}.</span>
-                </div>
-              </div>
-              <div class="card-footer text-center d-flex gap-2 justify-content-center">
-                <button onclick="clear_item(${i})" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
-                <button onclick="recale_Item(${i})" class="btn btn-outline-warning"><i class="fas fa-edit"></i></button>
-              </div>
-            </div>
-          </div>
-`;
+    cartona += createCols(i);
   }
   document.getElementById("row_container").innerHTML = cartona;
 }
@@ -99,10 +81,10 @@ function clear_item(index) {
   });
 }
 function recale_Item(index) {
-  input_ProductName.value = array_list[index].name;
+  input_ProductName.value = array_list[index].name.trim();
   input_productPrice.value = array_list[index].price;
-  input_productCategory.value = array_list[index].category;
-  input_productDescription.value = array_list[index].description;
+  input_productCategory.value = array_list[index].category.trim();
+  input_productDescription.value = array_list[index].description.trim();
   // input_productImage.value = array_list[index].image;
   addUpdateButton.classList.add("d-none");
   UpdateButton.classList.remove("d-none");
@@ -127,16 +109,37 @@ function search_product() {
 
   for (var i = 0; i < array_list.length; i++) {
     if (array_list[i].name.toLowerCase().includes(input_text.toLowerCase())) {
-      cartona += `<div class="col">
+      cartona += createCols(i);
+    }
+  }
+  document.getElementById("row_container").innerHTML = cartona;
+}
+
+function createCols(i) {
+  var regex = new RegExp(inputSearch.value, "gi");
+  return `<div class="col">
               <div class="card">
-                <img class="card-img-top" src= ${array_list[i].image} alt=${array_list[i].name} />
+                <img class="card-img-top" src= ${array_list[i].image} alt=${
+    array_list[i].name
+  } />
                 <div class="card-body">
                   <span class="badge bg-info">Index: ${i}</span>
-                  <h3 class="card-title h6">ProductName: ${array_list[i].name}</h3>
+                  <h3 class="card-title h6">ProductName: ${array_list[
+                    i
+                  ].name.replace(
+                    regex,
+                    (match) => `<span class="text-danger">${match}</span>`
+                  )}</h3>
                   <div class="d-flex flex-column gap-2">
-                    <span class="card-text small">ProductPrice:  ${array_list[i].price}</span>
-                    <span class="card-text small">productCategory:  ${array_list[i].category}</span>
-                    <span class="card-text small">productDescription:  ${array_list[i].description}.</span>
+                    <span class="card-text small">ProductPrice:  ${
+                      array_list[i].price
+                    }</span>
+                    <span class="card-text small">productCategory:  ${
+                      array_list[i].category
+                    }</span>
+                    <span class="card-text small">productDescription:  ${
+                      array_list[i].description
+                    }.</span>
                   </div>
                 </div>
                 <div class="card-footer text-center d-flex gap-2 justify-content-center">
@@ -146,7 +149,4 @@ function search_product() {
               </div>
             </div>
   `;
-    }
-  }
-  document.getElementById("row_container").innerHTML = cartona;
 }
